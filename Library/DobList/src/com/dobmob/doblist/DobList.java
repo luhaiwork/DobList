@@ -50,7 +50,19 @@ public class DobList {
 	public void addDefaultLoadingFooterView() {
 		dobListController.addDefaultLoadingFooterView();
 	}
-
+	public View getFooterFinishLoadingView() {
+		return dobListController.getFooterFinishLoadingView();
+	}
+	
+	public void setFooterFinishLoadingView(View footerFinishLoadingView) {
+		dobListController.setFooterFinishingLoadingView(footerFinishLoadingView);
+	}
+	public void setFooterFinishLoadingView(int loadingFinishViewRes) {
+		dobListController.setFooterFinishLoadingView(loadingFinishViewRes);
+	}
+	public void addDefaultFinishLoadingFooterView(){
+		dobListController.addDefaultFinishLoadingFooterView();
+	}
 	public void setEmptyView(View emptyView) {
 		dobListController.setEmptyView(emptyView);
 	}
@@ -93,5 +105,8 @@ public class DobList {
 
 	public void setOnScrollListener(OnScrollListener onScrollListener) {
 		dobListController.setOnScrollListener(onScrollListener);
+	}
+	public void setNoMoreData(boolean isNoMoreData) {
+		dobListController.setNoMoreData(isNoMoreData);
 	}
 }

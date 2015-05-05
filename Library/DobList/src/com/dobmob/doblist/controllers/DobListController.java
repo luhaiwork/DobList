@@ -22,13 +22,16 @@ public class DobListController {
 	private ListView listView;
 	private View loadingView;
 	private View footerLoadingView;
+	private View footerFinishLoadingView;
 	private View emptyView;
 	private int maxItemsCount = DEFAULT_INT;
 	private OnLoadMoreListener onLoadMoreListener;
 	private OnScrollListener onScrollListener;
 
 	private boolean isLoading;
+	private boolean isNoMoreData;
 	private ViewGroup emptyViewParent;
+
 
 	public void register(ListView listView) throws NoListViewException {
 		this.listView = listView;
@@ -93,8 +96,28 @@ public class DobListController {
 	public void setFooterLoadingView(int loadingViewRes) {
 		footerLoadingView = ResInflater.inflate(activity, loadingViewRes, null,
 				false);
-
-		setFooterLoadingView(loadingView);
+//		设置加载中view
+//		setFooterLoadingView(loadingView);
+		setFooterLoadingView(footerLoadingView);
+	}
+	public View getFooterFinishLoadingView() {
+		return footerFinishLoadingView;
+	}
+	
+	public void setFooterFinishingLoadingView(View footerFinishLoadingView) {
+		this.footerFinishLoadingView = footerFinishLoadingView;
+		
+		if (footerFinishLoadingView == null) {
+			this.footerFinishLoadingView = ResInflater.inflate(activity,
+					R.layout.loading_finish, null, false);
+		}
+//		listView.addFooterView(this.footerFinishLoadingView);
+	}
+	
+	public void setFooterFinishLoadingView(int loadingFinishViewRes) {
+		footerFinishLoadingView = ResInflater.inflate(activity, loadingFinishViewRes, null,
+				false);
+		setFooterFinishingLoadingView(footerFinishLoadingView);
 	}
 
 	public boolean hasFotter() {
@@ -120,6 +143,10 @@ public class DobListController {
 				null, false);
 
 		setFooterLoadingView(loadingView);
+	}
+	public void addDefaultFinishLoadingFooterView() {
+		footerFinishLoadingView = ResInflater.inflate(activity, R.layout.loading_finish,
+				null, false);
 	}
 
 	public void setEmptyView(View emptyView) {
@@ -187,4 +214,25 @@ public class DobListController {
 	public void setOnScrollListener(OnScrollListener onScrollListener) {
 		this.onScrollListener = onScrollListener;
 	}
+
+	public boolean isNoMoreData() {
+		return isNoMoreData;
+	}
+
+	public void setNoMoreData(boolean isNoMoreData) {
+		this.isNoMoreData = isNoMoreData;
+		if(isNoMoreData){
+			listView.removeFooterView(footerLoadingView);
+			listView.addFooterView(footerFinishLoadingView);
+		}else{
+			if(footerFinishLoadingView!=null){
+				listView.removeFooterView(footerFinishLoadingView);
+			}
+			if(footerLoadingView!=null){
+				listView.removeFooterView(footerLoadingView);
+				listView.addFooterView(footerLoadingView);
+			}
+		}
+	}
+	
 }

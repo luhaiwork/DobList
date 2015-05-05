@@ -9,7 +9,7 @@ import com.dobmob.doblist.events.OnLoadMoreListener;
 public class OnListScrollListener implements OnScrollListener {
 
 	private DobListController dobListController;
-	private int lastTotalItemCount;
+//	private int lastTotalItemCount;
 
 	public OnListScrollListener(DobListController dobListController) {
 		super();
@@ -19,7 +19,11 @@ public class OnListScrollListener implements OnScrollListener {
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-
+		//add  no more data begin
+		if(dobListController.isNoMoreData()){
+			return;
+		}
+		//add  no more data end
 		if (totalItemCount - dobListController.getFooterViewsCount() == 0) {
 			return;
 		}
@@ -68,15 +72,15 @@ public class OnListScrollListener implements OnScrollListener {
 	private void loadMore(OnLoadMoreListener onLoadMoreListener,
 			int totalItemCount) {
 
-		if (this.lastTotalItemCount < totalItemCount) {
-			this.lastTotalItemCount = totalItemCount;
+//		if (this.lastTotalItemCount < totalItemCount) {
+//			this.lastTotalItemCount = totalItemCount;
 
 			dobListController.setLoading(true);
 			dobListController.setFooterLoadViewVisibility(true);
 			if (onLoadMoreListener != null) {
 				onLoadMoreListener.onLoadMore(totalItemCount);
 			}
-		}
+//		}
 	}
 
 }

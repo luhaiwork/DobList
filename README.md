@@ -169,3 +169,6 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
 
+Modify History
+-------
+2015-05-05解决联想手机显示加载中视图错乱问题。
